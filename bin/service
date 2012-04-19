@@ -1,0 +1,51 @@
+#!/bin/bash
+#
+# Description: RPC service  
+#
+# Start the service 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+NUM=$2
+i=0
+start() {
+	echo $NUM > num_servers
+        while(($i < $NUM)) 
+	do
+	j=$(($i+8080))
+	$DIR/server $j &
+	i=$(($i+1))	
+	done
+	echo -n "RPC service started."
+	echo 
+	
+}
+# Restart the service TEST
+stop() {
+        pkill server
+	rm num_servers
+        echo "RPC service stopped."
+}
+### main logic ###
+
+case "$1" in
+  start)
+	if(($# < 2)); then 
+	echo $"Usage: $0 {start [num_servers] | stop | restart | reload}"
+        exit 1
+	fi
+        start 
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status FOO
+        ;;
+  restart|reload|condrestart)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        exit 1
+esac
+exit 0
