@@ -1,3 +1,6 @@
+Modified XML-RPC library with MultiRPC support and response semantics.
+Vinay Bharadwaj <vind.1989@gmail.com>
+
 This is the source code for XML-RPC for C/C++, called Xmlrpc-c for short.
 
 XML-RPC for C/C++ is programming libraries and related tools to help you
